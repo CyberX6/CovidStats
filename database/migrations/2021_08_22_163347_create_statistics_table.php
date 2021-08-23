@@ -16,9 +16,9 @@ class CreateStatisticsTable extends Migration
         Schema::create('statistics', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('country_id');
-            $table->integer('confirmed');
-            $table->integer('recovered');
-            $table->integer('death');
+            $table->integer('confirmed')->default(0);
+            $table->integer('recovered')->default(0);
+            $table->integer('death')->default(0);
             $table->timestamps();
         });
     }

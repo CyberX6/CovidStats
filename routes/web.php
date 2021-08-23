@@ -14,5 +14,13 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
+    $c = \App\Models\Country::all();
+
+    if ($c->isEmpty()) {
+        dd(1);
+    } else {
+        dd(2);
+    }
+
     return view('welcome');
 });
