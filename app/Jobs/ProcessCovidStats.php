@@ -14,7 +14,10 @@ use Illuminate\Queue\SerializesModels;
 
 class ProcessCovidStats implements ShouldQueue
 {
-    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
+    use Dispatchable;
+    use InteractsWithQueue;
+    use Queueable;
+    use SerializesModels;
 
     public $countryCode;
 
@@ -36,17 +39,20 @@ class ProcessCovidStats implements ShouldQueue
     public function handle()
     {
         $date = date('Y-m-d');
-        $response = Http::withHeaders([
-                                          'x-rapidapi-key' => config('api.rapidApiKey'),
-                                          'x-rapidapi-host' => config('api.rapidApiHost')
-                                      ])->get(config('urls.fetchStats').'?code='.$this->countryCode.'&date='.$date);
+        $response = Http::withHeaders(
+            [
+              'x-rapidapi-key' => config('api.rapidApiKey'),
+              'x-rapidapi-host' => config('api.rapidApiHost')
+            ]
+        )->get(config('urls.fetchStats') . '?code=' . $this->countryCode  . '&date=' . $date);
 
         if ($response->ok()) {
             $response = $response->object()[0];
             $countryCode = $response->code;
             $countryId = Country::where('code', $countryCode)->first()->id;
 
-            $existing = Statistic::whereRaw('DATE(created_at) = CURDATE() AND country_id = '.$countryId)->first();
+            $existing = Statistic::whereRaw('created_at = CURDATE() AND country_id = ' . $countryId)->first();
+
             $data = [
                 'confirmed' => $response->confirmed,
                 'recovered' => $response->recovered,
