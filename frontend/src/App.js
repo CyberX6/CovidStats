@@ -17,6 +17,9 @@ const App = () => {
         <Route path="/table">
           <Table />
         </Route>
+        <Route path="*">
+          <Table />
+        </Route>
       </Switch>
     </BrowserRouter>
   )

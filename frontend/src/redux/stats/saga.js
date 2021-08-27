@@ -7,7 +7,7 @@ import {
 import { statsService } from '../../services/statsService'
 
 export function* fetchStats() {
-  yield delay(1000)
+  yield delay(2000)
 
   try {
     const user = yield select(({ user }) => user)

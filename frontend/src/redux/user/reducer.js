@@ -1,4 +1,4 @@
-import { SIGNIN_SUCCEEDED, SIGNIN_FAILED } from './types'
+import { SIGNIN_SUCCEEDED, SIGNIN_FAILED, SIGNIN_REQUESTED } from './types'
 
 const initialState = {
   loading: true,
@@ -23,6 +23,11 @@ export const userReducer = (state = initialState, action) => {
           code: action.payload.errorCode
         },
         loading: false
+      }
+    case SIGNIN_REQUESTED:
+      return {
+        ...state,
+        data: null
       }
     default:
       return state
