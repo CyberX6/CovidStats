@@ -14,6 +14,9 @@ const App = () => {
         <Route path="/login">
           <Login />
         </Route>
+        <Route path="/table">
+          <Table />
+        </Route>
       </Switch>
     </BrowserRouter>
   )
